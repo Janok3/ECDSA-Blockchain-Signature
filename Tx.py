@@ -1,4 +1,5 @@
 import random
+import os
 
 from DS import KeyGen, SignGen
 
@@ -36,3 +37,11 @@ def gen_random_tx(q, p, g):
     
 
     return formatData(s, h, serialNumber, amount, receiverPK, senderPK)
+
+def gen_random_txblock(q, p, g, TxCnt, filename):
+    # check TxCnt to make sure it is a power of 2
+    
+    if os.path.exists(filename) == False:
+        with open(filename, 'w') as file:
+            for _ in range(TxCnt):
+                file.write(gen_random_tx(q, p, g) + "\n")  # Adds a newline after each block
